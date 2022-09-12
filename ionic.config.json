@@ -1,0 +1,7 @@
+{
+  "name": "Kody Kreskowe",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
