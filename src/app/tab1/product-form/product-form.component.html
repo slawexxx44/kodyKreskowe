@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Skaner</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Kod</ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="product.barcodeContent"
+      name="barcodeContent"
+    ></ion-input>
+  </ion-item>
+  <hr />
+  <ion-item>
+    <ion-label>Liczba produktow</ion-label>
+    <ion-input
+      type="number"
+      [(ngModel)]="product.count"
+      name="count"
+      autofocus
+    ></ion-input>
+  </ion-item>
+  <hr />
+  <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+  <ion-button color="success" style="float: right" (click)="sendUpdate()"
+    >Wyslij informacje</ion-button
+  >
+</ion-content>
