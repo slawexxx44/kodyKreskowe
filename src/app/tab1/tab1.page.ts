@@ -4,7 +4,7 @@ import {
   BarcodeScanResult,
 } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { ModalController } from '@ionic/angular';
-import { ProductFormComponent } from './product-form/product-form.component';
+import { ProductFormComponent } from '../product-form/product-form.component';
 
 const testResponse: BarcodeScanResult = {
   cancelled: false,
