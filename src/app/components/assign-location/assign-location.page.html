@@ -1,0 +1,94 @@
+<app-menu-page [header]="'Rejestruj lokalizacje'">
+  <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
+
+  <ion-text *ngIf="locations.length < 1" color="primary">
+    <h1>Skanuj kod lokalizacji</h1>
+  </ion-text>
+
+  <ion-list *ngIf="locations.length > 0">
+    <ion-reorder-group
+      [disabled]="locations.length  < 2"
+      (ionItemReorder)="handleReorder($any($event))"
+    >
+      <ng-container *ngFor="let locObject of locations; let i = index;">
+        <ion-list-header>
+          <ion-label>Lokalizacja: {{locObject.lokalizacja}}</ion-label>
+          <ion-button color="danger" (click)="removeLocation(i)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon
+          ></ion-button>
+        </ion-list-header>
+
+        <ion-item-sliding *ngFor="let product of locObject.produkty">
+          <ion-item>
+            <ion-label>{{product}} </ion-label>
+            <ion-reorder slot="end"></ion-reorder>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="removeItem(product, i)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+    </ion-reorder-group>
+  </ion-list>
+</app-menu-page>
+<ion-footer collapse="fade" style="margin-bottom: 15px">
+  <ion-toolbar>
+    <ion-button expand="block" size="large" (click)="scan()"
+      >Skanuj z aparatu</ion-button
+    >
+    <ion-button
+      expand="block"
+      size="large"
+      color="success"
+      (click)="sendInfo()"
+      [disabled]="locations.length === 0"
+      >Wyślij</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>
+<!-- 
+
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Rejestruj lokalizacje</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
+
+  <ion-text *ngIf="locations.length < 1" color="primary">
+    <h1>Skanuj kod lokalizacji</h1>
+ 
+  </ion-text>
+
+  <ion-list *ngIf="locations.length > 0">
+    <ion-reorder-group
+      [disabled]="locations.length  < 2"
+      (ionItemReorder)="handleReorder($any($event))"
+    >
+      <ng-container *ngFor="let locObject of locations; let i = index;">
+        <ion-list-header>
+          <ion-label>Lokalizacja: {{locObject.lokalizacja}}</ion-label>
+          <ion-button color="danger" (click)="removeLocation(i)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon
+          ></ion-button>
+        </ion-list-header>
+
+        <ion-item-sliding *ngFor="let product of locObject.produkty">
+          <ion-item>
+            <ion-label>{{product}} </ion-label>
+            <ion-reorder slot="end"></ion-reorder>
+          </ion-item>
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="removeItem(product, i)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ng-container>
+    </ion-reorder-group>
+  </ion-list>
+</ion-content>
+ -->

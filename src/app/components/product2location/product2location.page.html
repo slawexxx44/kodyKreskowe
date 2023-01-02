@@ -1,0 +1,30 @@
+<app-menu-page [header]="'Produkty do lokalizacji'">
+  <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
+
+  <ion-list-header>
+    <ion-label>Lokalizacja:</ion-label>
+  </ion-list-header>
+  <ion-item>
+    <ion-label position="floating">Kod</ion-label>
+    <ion-input
+      autofocus
+      type="text"
+      [ngModel]="productCode"
+      name="productCode"
+    ></ion-input>
+  </ion-item>
+  <ion-text color="primary">
+    <h1 style="font-size: 20vh">{{location?.lokalizacja}}</h1>
+  </ion-text>
+
+  <ion-text *ngIf="location?.ilosc" color="secondary">
+    <h2 style="font-size: 5vh">Ilość: {{location?.ilosc}}</h2>
+  </ion-text>
+</app-menu-page>
+<ion-footer collapse="fade" style="margin-bottom: 15px">
+  <ion-toolbar>
+    <ion-button expand="block" size="large" (click)="scan()"
+      >Skanuj z aparatu</ion-button
+    >
+  </ion-toolbar>
+</ion-footer>

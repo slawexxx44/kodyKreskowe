@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Informacje o sektorze 234 </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label>Kod</ion-label>
+    <ion-input
+      type="text"
+      [(ngModel)]="section.barcodeContent"
+      name="barcodeContent"
+    ></ion-input>
+  </ion-item>
+  <hr />
+  <hr />
+  <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
+  <ion-button color="success" style="float: right" (click)="sendUpdate()"
+    >Potwierdź</ion-button
+  >
+</ion-content>

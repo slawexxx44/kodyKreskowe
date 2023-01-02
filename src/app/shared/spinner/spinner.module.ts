@@ -1,0 +1,11 @@
+import { IonicModule } from '@ionic/angular';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SpinnerComponent } from './spinner.component';
+
+@NgModule({
+  imports: [IonicModule, CommonModule],
+  declarations: [SpinnerComponent],
+  exports: [SpinnerComponent],
+})
+export class SpinnerModule {}

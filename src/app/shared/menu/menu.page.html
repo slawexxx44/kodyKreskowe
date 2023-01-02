@@ -1,0 +1,72 @@
+<ion-menu contentId="{{menuId}}">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Menu</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ion-list>
+      <ion-item (click)="navigate(appRoutes.productToGroups)">
+        <ion-label>Produkt do grup</ion-label>
+      </ion-item>
+      <ion-item (click)="navigate(appRoutes.productsToLocation)">
+        <ion-label>Produkt do lokalizacji</ion-label>
+      </ion-item>
+      <ion-item (click)="navigate(appRoutes.assignLocation)">
+        <ion-label>Przypisz lokalizacje</ion-label>
+      </ion-item>
+      <ion-item (click)="navigate(appRoutes.assignContext)">
+        <ion-label>Zarządzaj zamówieniem</ion-label>
+      </ion-item>
+      <ion-item (click)="logOut(appRoutes.assignUsers)">
+        <ion-label>Wyloguj</ion-label>
+      </ion-item>
+    </ion-list>
+
+    <!--  <ion-menu-toggle>
+      <ion-button expand="block" fill="clear">Cancel</ion-button>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle (click)="navigate(appRoutes.productToGroups)">
+      <ion-button expand="block" fill="clear">Produkt do grup</ion-button>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle (click)="navigate(appRoutes.productsToLocation)">
+      <ion-button expand="block" fill="clear"
+        >Produkt do lokalizacji</ion-button
+      >
+    </ion-menu-toggle>
+
+    <ion-menu-toggle (click)="navigate(appRoutes.assignLocation)">
+      <ion-button expand="block" fill="clear">Przypisz lokalizacje</ion-button>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle (click)="navigate(appRoutes.assignContext)">
+      <ion-button expand="block" fill="clear">Zarządzaj zamówieniem</ion-button>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle (click)="logOut(appRoutes.assignUsers)">
+      <ion-button expand="block" fill="clear">Wyloguj</ion-button>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle>
+      <ion-button expand="block" fill="clear">Cancel</ion-button>
+    </ion-menu-toggle> -->
+  </ion-content>
+</ion-menu>
+<div class="ion-page" id="{{menuId}}">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{header}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <ng-content> </ng-content>
+  </ion-content>
+</div>

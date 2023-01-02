@@ -1,0 +1,12 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Wybierz uzytkownika</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list lines="inset">
+    <ion-item (click)="selectUser(user)" *ngFor="let user of users">
+      <ion-label>{{user.su_imie}} {{user.su_nazwisko}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
