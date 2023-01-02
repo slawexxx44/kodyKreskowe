@@ -1,9 +1,6 @@
 <app-menu-page [header]="'Produkty do lokalizacji'">
-  <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
+  <!-- <app-spinner *ngIf="this.isLoading"></app-spinner> -->
 
-  <ion-list-header>
-    <ion-label>Lokalizacja:</ion-label>
-  </ion-list-header>
   <ion-item>
     <ion-label position="floating">Kod</ion-label>
     <ion-input

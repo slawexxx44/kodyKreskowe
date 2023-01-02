@@ -104,30 +104,28 @@ export class AssignLocationPage implements OnInit {
 
   ngOnInit(): void {
     this.productCodes = this.formService.getProducts();
-    this.tabService.locations$.subscribe((locationCode: string) => {
+
+    /* this.tabService.locations$.subscribe((locationCode: string) => {
       this.locations.push({
         lokalizacja: locationCode,
         produkty: this.locations.length > 0 ? [] : this.productCodes,
       });
-    });
+    }); */
   }
 
   sendInfo() {
-    if (this.locations.length < 1 || this.tabService.isLoading$.getValue()) {
+    if (this.locations.length < 1) {
       return;
     }
 
-    this.tabService.isLoading$.next(true);
     this.httpService.updateProductsLocation(this.locations).subscribe(
       () => {
         this.formService.clearProducts();
         this.communicationService.presentToast();
         this.locations = [];
         this.productCodes = [];
-        this.tabService.isLoading$.next(false);
       },
       (err) => {
-        this.tabService.isLoading$.next(false);
         this.communicationService.presentToast(
           `Błąd wysyłania wiadomości: ${err}`,
           'danger'

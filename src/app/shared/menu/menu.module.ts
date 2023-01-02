@@ -3,11 +3,11 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MenuPage } from './menu.page';
-import { SpinnerModule } from '../../shared/spinner/spinner.module';
+import { FeatureAccessDirective } from '../../shared/guards/feature-access.directive';
 
 @NgModule({
-  imports: [IonicModule, CommonModule, FormsModule, SpinnerModule],
-  declarations: [MenuPage],
-  exports: [MenuPage],
+  imports: [IonicModule, CommonModule, FormsModule],
+  declarations: [MenuPage, FeatureAccessDirective],
+  exports: [MenuPage, FeatureAccessDirective],
 })
 export class MenuPageModule {}

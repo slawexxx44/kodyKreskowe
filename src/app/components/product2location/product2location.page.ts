@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {
   BarcodeScanner,
   BarcodeScanResult,
@@ -6,14 +6,13 @@ import {
 import { CommunicationService } from '../../services/communication.service';
 import { IProductLocation, HttpService } from '../../services/http.service';
 import { FormService } from '../../services/form-service.service';
-import { TabService } from '../current-tab.service';
 
 @Component({
   selector: 'app-products-2-locations',
   templateUrl: 'product2location.page.html',
   styleUrls: ['product2location.page.scss'],
 })
-export class Products2locationPage implements OnInit {
+export class Products2locationPage {
   location: IProductLocation;
   productCode = '';
 
@@ -21,43 +20,47 @@ export class Products2locationPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private communicationService: CommunicationService,
     private httpService: HttpService,
-    private formService: FormService,
-    public tabService: TabService
+    private formService: FormService
   ) {}
 
-  ngOnInit(): void {
-    this.tabService.productToLocation$.subscribe(
-      (productCode) => {
-        this.productCode = productCode;
-        this.sendInfo(productCode);
-      },
-      (e) => console.error(e)
-    );
-  }
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log('event', event.code);
 
-  sendInfo(product: string) {
-    if (this.tabService.isLoading$.getValue() || product.length < 1) {
+    if (event.key === 'Escape') {
       return;
     }
 
-    console.log('product', product);
+    if (event.key === 'Shift') {
+      return (this.productCode = '');
+    }
 
-    this.tabService.isLoading$.next(true);
-    this.httpService.getProductLocation(product).subscribe(
+    if (event.key === 'Enter') {
+      console.log('Enter');
+      this.sendInfo();
+
+      return (this.productCode = '');
+    }
+
+    this.productCode += event.key;
+  }
+
+  sendInfo() {
+    if (this.productCode.length < 1) {
+      return;
+    }
+
+    console.log('product', this.productCode);
+
+    this.httpService.getProductLocation(this.productCode).subscribe(
       (data: IProductLocation) => {
         this.location = data;
-        this.formService.prependProduct(product);
+        this.formService.prependProduct(this.productCode);
         this.communicationService.presentToast();
-        this.tabService.isLoading$.next(false);
-        this.formService.openProductFormModalTest(
-          data.lokalizacja,
-          null,
-          data.stan
-        );
       },
       (err) => {
         console.error(err);
-        this.tabService.isLoading$.next(false);
+
         this.communicationService.presentToast(
           `Błąd wysyłania wiadomości: ${err}`,
           'danger'
@@ -70,7 +73,8 @@ export class Products2locationPage implements OnInit {
     this.barcodeScanner
       .scan()
       .then((barcodeData: BarcodeScanResult) => {
-        this.tabService.productToLocation$.next(barcodeData.text);
+        this.productCode = barcodeData.text;
+        this.sendInfo();
       })
       .catch((err) => {
         this.communicationService.presentToast(
