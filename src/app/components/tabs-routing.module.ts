@@ -11,7 +11,7 @@ import { AccessService, AppRoles } from '../services/access.service';
 import { Products2groupsPage } from './products2groups/products2groups.page';
 import { Products2locationPage } from './product2location/product2location.page';
 import { AssignLocationPage } from './assign-location/assign-location.page';
-import { ContextsPage } from './contexts/contexts.page';
+import { ContextsPage } from './assign-contexts/contexts.page';
 
 @Injectable({ providedIn: 'root' })
 class CanActivateStandard implements CanActivate {

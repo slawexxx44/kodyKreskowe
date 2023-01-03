@@ -4,7 +4,7 @@ import { UsersPage } from './components/users/users.page';
 import { Products2groupsPage } from './components/products2groups/products2groups.page';
 import { Products2locationPage } from './components/product2location/product2location.page';
 import { AssignLocationPage } from './components/assign-location/assign-location.page';
-import { ContextsPage } from './components/contexts/contexts.page';
+import { ContextsPage } from './components/assign-contexts/contexts.page';
 import {
   CanActivateAdmin,
   CanActivateExtended,

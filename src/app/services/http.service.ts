@@ -81,12 +81,14 @@ export class HttpService {
 
   getProductGroup(productCode: string) {
     console.log(`${apiUrl}tns.php?p1=${productCode}`);
-    return this.http.get<IProductGroup>(`${apiUrl}tns.php?p1=${productCode}`);
+    return this.http.get<IProductGroup>(
+      `${apiUrl}tns_ean.php?p1=${productCode}`
+    );
   }
 
   getProductLocation(productCode: string) {
     return this.http.get<IProductLocation>(
-      `${apiUrl}tns.php?p1=${productCode}`
+      `${apiUrl}tns_ean.php?p1=${productCode}`
     );
   }
 

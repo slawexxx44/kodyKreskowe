@@ -57,7 +57,7 @@ export class UsersPage implements OnInit {
       }
     }
 
-    this.access.setUserAccess(access, 0);
+    this.access.setUserAccess(access, user.su_id);
 
     this.navigate();
   }
