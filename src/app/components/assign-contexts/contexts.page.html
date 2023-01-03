@@ -1,0 +1,16 @@
+<app-menu-page [header]="'Wybierz zamówienie'">
+  <ion-list>
+    <ion-item
+      *ngFor="let c of contexts | keyvalue"
+      (click)="selectContext(c?.value?.length > 1 ? c.value[0].nr_zam : c.key)"
+    >
+      <p style="width: 100px">{{c.key }}</p>
+
+      <ion-list lines="none">
+        <ion-item *ngFor="let d of c.value">
+          <ion-label>{{d.nr_zam }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-item>
+  </ion-list>
+</app-menu-page>
