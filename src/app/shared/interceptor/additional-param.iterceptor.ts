@@ -17,10 +17,9 @@ export class CustomHttpInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     const newReq = req.clone({
-      params: (req.params ? req.params : new HttpParams()).set(
-        'p9',
-        this.access.user ?? 0
-      ),
+      params: (req.params ? req.params : new HttpParams())
+        .set('p9', this.access.user ?? 0)
+        .set('p7', 'c3VwZXJ0YWpuZWhhc2xv'),
     });
 
     return next.handle(newReq);

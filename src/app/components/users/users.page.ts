@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
 import { CommunicationService } from '../../services/communication.service';
-import { IUsers, IUserBasic, HttpService } from '../../services/http.service';
+import { IUserBasic, HttpService } from '../../services/http.service';
 import { FormService } from '../../services/form-service.service';
 import { AccessService, AppRoles } from '../../services/access.service';
 import { NavController } from '@ionic/angular';

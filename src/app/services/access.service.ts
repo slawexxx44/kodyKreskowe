@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TouchSequence } from 'selenium-webdriver';
 
 export enum AppRoles {
   external = 0,
