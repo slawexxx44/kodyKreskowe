@@ -58,7 +58,7 @@ export interface IUser {
 }
 
 const apiUrl = 'http://10.0.0.203/app/';
-const t = 5902557245192; //test product
+const t = 5902557244317; //test product
 @Injectable({
   providedIn: 'root',
 })
@@ -94,7 +94,7 @@ export class HttpService {
     );
   }
 
-  getProductLocation(productCode: number) {
+  getProductLocation(productCode: string) {
     return this.http.get<IProductGroup>(
       `${apiUrl}tns_ean.php?p1=${productCode}`
     );

@@ -21,28 +21,7 @@ export class Products2groupsPage {
     public formService: FormService,
     private communicationService: CommunicationService,
     private httpService: HttpService
-  ) {
-    this.httpService.getProductLocation().subscribe(
-      (data: IProductGroup) => {
-        console.log(data);
-        this.group = data;
-        this.communicationService.presentToast();
-        /*  this.formService.openProductFormModalTest(
-          data.strefa,
-          data.podstrefa,
-          null
-        ); */
-      },
-      (err) => {
-        console.error(err);
-
-        this.communicationService.presentToast(
-          `Błąd wysyłania wiadomości: ${err}`,
-          'danger'
-        );
-      }
-    );
-  }
+  ) {}
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -72,15 +51,10 @@ export class Products2groupsPage {
     }
 
     //this.httpService.getProductLocation(this.productCode).subscribe(
-    this.httpService.getProductLocation().subscribe(
+    this.httpService.getProductLocation(this.productCode).subscribe(
       (data: IProductGroup) => {
         this.group = data;
         this.communicationService.presentToast();
-        /*  this.formService.openProductFormModalTest(
-          data.strefa,
-          data.podstrefa,
-          null
-        ); */
       },
       (err) => {
         console.error(err);

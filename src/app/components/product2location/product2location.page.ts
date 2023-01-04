@@ -17,7 +17,7 @@ import { FormService } from '../../services/form-service.service';
   styleUrls: ['product2location.page.scss'],
 })
 export class Products2locationPage {
-  location: IProductLocation[];
+  product: IProductGroup;
   productCode = '';
 
   constructor(
@@ -54,11 +54,12 @@ export class Products2locationPage {
       return;
     }
 
-    console.log('product', this.productCode);
+    console.log('product code to be sent', this.productCode);
 
     this.httpService.getProductLocation(this.productCode as any).subscribe(
       (data: IProductGroup) => {
-        this.location = data?.loka;
+        this.product = data;
+        console.log('product', this.product);
         this.formService.prependProduct(this.productCode);
         this.communicationService.presentToast();
       },

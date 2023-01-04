@@ -3,20 +3,31 @@
 </ion-header>
 <ion-content class="ion-padding">
   <ion-item>
-    <ion-toggle
-      color="light"
-      [checked]="reset"
-      slot="start"
-      (click)="reset = !reset"
-    ></ion-toggle>
-    <ion-label *ngIf="reset">Ustaw czas rozładunku</ion-label>
-    <ion-label *ngIf="!reset">Usuń czas rozpoczęcia rozładunku</ion-label>
+    <ion-toggle color="light" slot="start" [(ngModel)]="reset"></ion-toggle>
+    <ion-label *ngIf="reset">Rozpoczęcie rozładunku</ion-label>
+    <ion-label *ngIf="!reset">Anuluj rozpoczęcie rozładunku</ion-label>
   </ion-item>
 
   <hr />
   <hr />
+
+  <ion-text color="secondary" *ngIf="isPendingRequest"
+    ><h6>Potwierdź akcję</h6></ion-text
+  >
+  <hr />
   <ion-button color="medium" (click)="cancel()">Cancel</ion-button>
-  <ion-button color="success" style="float: right" (click)="sendUpdate()"
+  <ion-button
+    *ngIf="!isPendingRequest"
+    color="success"
+    style="float: right"
+    (click)="isPendingRequest = true"
+    >Zapisz</ion-button
+  >
+  <ion-button
+    *ngIf="isPendingRequest"
+    color="success"
+    style="float: right"
+    (click)="sendUpdate()"
     >Potwierdź</ion-button
   >
 </ion-content>

@@ -1,4 +1,4 @@
-<app-menu-page [header]="'Rejestruj lokalizacje'">
+<app-menu-page [header]="'Przypisz lokalizacje'">
   <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
 
   <ion-text *ngIf="locations.length < 1" color="primary">

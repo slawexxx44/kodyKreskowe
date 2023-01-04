@@ -10,13 +10,52 @@
       name="productCode"
     ></ion-input>
   </ion-item>
-  <ion-text color="primary">
-    <h1 style="font-size: 20vh">{{location?.lokalizacja}}</h1>
-  </ion-text>
 
-  <ion-text *ngIf="location?.ilosc" color="secondary">
-    <h2 style="font-size: 5vh">Ilość: {{location?.ilosc}}</h2>
-  </ion-text>
+  <div *ngIf="product?.strefa" class="lok-container">
+    <div class="strefa-result">
+      <ion-label>Sugerowana lokalizacja: </ion-label>
+      <ion-text color="primary">
+        <h1 class="strefa">{{ product.loka[0]?.lokSugerowana}}</h1>
+      </ion-text>
+    </div>
+
+    <ion-label>Lokalizacje produktu:</ion-label>
+
+    <ion-grid *ngFor="let lok of product.loka">
+      <ion-row>
+        <ion-col
+          ><ion-text color="medium">Lokalizacja sugerowana:</ion-text></ion-col
+        >
+        <ion-col
+          ><ion-text color="secondary">{{lok.lokSugerowana}}</ion-text></ion-col
+        >
+      </ion-row>
+      <ion-row>
+        <ion-col
+          ><ion-text color="medium">Objętość lokalizacji:</ion-text></ion-col
+        >
+        <ion-col
+          ><ion-text color="secondary">{{lok.objeLok}}</ion-text></ion-col
+        >
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-text color="medium">Stan lokalizacji:</ion-text></ion-col
+        >
+        <ion-col
+          ><ion-text color="secondary">{{lok.stanLok}}</ion-text></ion-col
+        >
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-text color="secondary" *ngFor="let lok of product.loka; let i = index"
+      ><p></p></ion-text
+      > -->
+    <!-- <ion-text color="secondary"><p>ean: {{product.ean}}</p></ion-text>
+    <ion-text color="medium"><p>ean: {{product.ean}}</p></ion-text>
+    <ion-text color="tertiary"><p>ean: {{product.ean}}</p></ion-text>
+    <ion-text color="light"><p>ean: {{product.ean}}</p></ion-text> -->
+  </div>
 </app-menu-page>
 <ion-footer collapse="fade" style="margin-bottom: 15px">
   <ion-toolbar>

@@ -12,6 +12,7 @@ export interface IProduct {
 })
 export class ContextFormComponent {
   reset = true;
+  isPendingRequest = false;
   constructor(private modalCtrl: ModalController) {}
 
   sendUpdate() {
