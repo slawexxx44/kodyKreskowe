@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectorRef,
+  HostListener,
+} from '@angular/core';
 import {
   BarcodeScanner,
   BarcodeScanResult,
@@ -7,7 +12,6 @@ import { CommunicationService } from '../../services/communication.service';
 import { ILocationsAssigment, HttpService } from '../../services/http.service';
 import { FormService } from '../../services/form-service.service';
 import { ItemReorderEventDetail } from '@ionic/angular';
-import { TabService } from '../current-tab.service';
 
 @Component({
   selector: 'app-assign-location',
@@ -16,14 +20,36 @@ import { TabService } from '../current-tab.service';
 export class AssignLocationPage implements OnInit {
   locations: ILocationsAssigment[] = [];
   productCodes: string[] = [];
+  locationCode = '';
 
   constructor(
     private barcodeScanner: BarcodeScanner,
     private communicationService: CommunicationService,
     private httpService: HttpService,
-    private formService: FormService,
-    public tabService: TabService
+    private formService: FormService
   ) {}
+
+  @HostListener('window:keydown', ['$event'])
+  keyEvent(event: KeyboardEvent) {
+    console.log('event', event.code);
+
+    if (event.key === 'Escape') {
+      return;
+    }
+
+    if (event.key === 'Shift') {
+      return (this.locationCode = '');
+    }
+
+    if (event.key === 'Enter') {
+      console.log('Enter');
+      this.prependLocation(this.locationCode);
+
+      return (this.locationCode = '');
+    }
+
+    this.locationCode += event.key;
+  }
 
   handleReorder(ev: CustomEvent<ItemReorderEventDetail>) {
     // The `from` and `to` properties contain the index of the item
@@ -102,15 +128,17 @@ export class AssignLocationPage implements OnInit {
     console.log(this.locations);
   }
 
+  prependLocation(locationCode: string) {
+    this.locations.push({
+      lokalizacja: locationCode,
+      produkty: this.locations.length > 0 ? [] : this.productCodes,
+    });
+  }
+
   ngOnInit(): void {
     this.productCodes = this.formService.getProducts();
 
-    /* this.tabService.locations$.subscribe((locationCode: string) => {
-      this.locations.push({
-        lokalizacja: locationCode,
-        produkty: this.locations.length > 0 ? [] : this.productCodes,
-      });
-    }); */
+    console.log('productCodes', this.productCodes);
   }
 
   sendInfo() {
@@ -124,6 +152,7 @@ export class AssignLocationPage implements OnInit {
         this.communicationService.presentToast();
         this.locations = [];
         this.productCodes = [];
+        this.locationCode = '';
       },
       (err) => {
         this.communicationService.presentToast(
@@ -138,7 +167,7 @@ export class AssignLocationPage implements OnInit {
     this.barcodeScanner
       .scan()
       .then((barcodeData: BarcodeScanResult) => {
-        this.tabService.locations$.next(barcodeData.text);
+        this.prependLocation(barcodeData.text);
       })
       .catch((err) => {
         this.communicationService.presentToast(

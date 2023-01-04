@@ -60,7 +60,7 @@ export class Products2locationPage {
       (data: IProductGroup) => {
         this.product = data;
         console.log('product', this.product);
-        this.formService.prependProduct(this.productCode);
+        this.formService.prependProduct(data.ean);
         this.communicationService.presentToast();
       },
       (err) => {
