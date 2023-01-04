@@ -4,7 +4,11 @@ import {
   BarcodeScanResult,
 } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { CommunicationService } from '../../services/communication.service';
-import { IProductLocation, HttpService } from '../../services/http.service';
+import {
+  IProductLocation,
+  HttpService,
+  IProductGroup,
+} from '../../services/http.service';
 import { FormService } from '../../services/form-service.service';
 
 @Component({
@@ -13,7 +17,7 @@ import { FormService } from '../../services/form-service.service';
   styleUrls: ['product2location.page.scss'],
 })
 export class Products2locationPage {
-  location: IProductLocation;
+  location: IProductLocation[];
   productCode = '';
 
   constructor(
@@ -52,9 +56,9 @@ export class Products2locationPage {
 
     console.log('product', this.productCode);
 
-    this.httpService.getProductLocation(this.productCode).subscribe(
-      (data: IProductLocation) => {
-        this.location = data;
+    this.httpService.getProductLocation(this.productCode as any).subscribe(
+      (data: IProductGroup) => {
+        this.location = data?.loka;
         this.formService.prependProduct(this.productCode);
         this.communicationService.presentToast();
       },

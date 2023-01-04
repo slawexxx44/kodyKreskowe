@@ -2,15 +2,23 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 export interface IProductGroup {
+  ean: string;
+  lok_osta_wz: string;
+  loka: IProductLocation[];
+  masa: string;
+  objetosc: string;
+  stan: string;
   strefa: string;
-  podstrefa: string;
-  ilosc: number;
+  symbol: string;
+  szt_osta_wz: string;
 }
 
 export interface IProductLocation {
-  lokalizacja: string;
-  ilosc: string;
-  stan: number;
+  lokAktu: string;
+  lokSugerowana: string;
+  masLok: string;
+  objeLok: string;
+  stanLok: string;
 }
 
 export interface ILocationsAssigment {
@@ -86,8 +94,8 @@ export class HttpService {
     );
   }
 
-  getProductLocation(productCode: string) {
-    return this.http.get<IProductLocation>(
+  getProductLocation(productCode: number) {
+    return this.http.get<IProductGroup>(
       `${apiUrl}tns_ean.php?p1=${productCode}`
     );
   }

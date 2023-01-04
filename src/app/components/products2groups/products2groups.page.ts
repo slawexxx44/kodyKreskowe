@@ -13,11 +13,7 @@ import { IProductGroup, HttpService } from '../../services/http.service';
   styleUrls: ['products2groups.page.scss'],
 })
 export class Products2groupsPage {
-  group: IProductGroup = {
-    strefa: '123',
-    podstrefa: '123',
-    ilosc: 2,
-  };
+  group: IProductGroup;
   productCode = '';
 
   constructor(
@@ -25,7 +21,28 @@ export class Products2groupsPage {
     public formService: FormService,
     private communicationService: CommunicationService,
     private httpService: HttpService
-  ) {}
+  ) {
+    this.httpService.getProductLocation().subscribe(
+      (data: IProductGroup) => {
+        console.log(data);
+        this.group = data;
+        this.communicationService.presentToast();
+        /*  this.formService.openProductFormModalTest(
+          data.strefa,
+          data.podstrefa,
+          null
+        ); */
+      },
+      (err) => {
+        console.error(err);
+
+        this.communicationService.presentToast(
+          `Błąd wysyłania wiadomości: ${err}`,
+          'danger'
+        );
+      }
+    );
+  }
 
   @HostListener('window:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
@@ -54,7 +71,8 @@ export class Products2groupsPage {
       return;
     }
 
-    this.httpService.getProductGroup(this.productCode).subscribe(
+    //this.httpService.getProductLocation(this.productCode).subscribe(
+    this.httpService.getProductLocation().subscribe(
       (data: IProductGroup) => {
         this.group = data;
         this.communicationService.presentToast();

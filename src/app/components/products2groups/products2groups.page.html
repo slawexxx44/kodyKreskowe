@@ -1,4 +1,4 @@
-<app-menu-page [header]="'Produkty na grupy'">
+<app-menu-page [header]="'Strefy ?'">
   <ion-item>
     <ion-label position="floating">Kod</ion-label>
     <ion-input
@@ -10,17 +10,14 @@
   </ion-item>
 
   <div *ngIf="group?.strefa">
-    <ion-text color="primary">
-      <h1 style="font-size: 20vh">{{ group.strefa }}</h1>
+    <ion-text class="strefa-result" color="primary">
+      <ion-label>Strefa: </ion-label>
+      <h1 class="strefa">{{ group.strefa }}</h1>
     </ion-text>
-
-    <ion-text *ngIf="group.podstrefa" color="secondary">
-      <h2 style="font-size: 10vh">{{ group.podstrefa }}</h2>
-    </ion-text>
-
-    <ion-text *ngIf="group.ilosc" color="secondary">
-      <h2 style="font-size: 5vh">Ilość: {{ group.ilosc }}</h2>
-    </ion-text>
+    <ion-text color="secondary"><p>ean: {{group.ean}}</p></ion-text>
+    <ion-text color="medium"><p>symbol: {{group.symbol}}</p></ion-text>
+    <ion-text color="medium"><p>masa: {{group.masa}}</p></ion-text>
+    <ion-text color="medium"><p>objetosc: {{group.objetosc}}</p></ion-text>
   </div>
 </app-menu-page>
 <ion-footer collapse="fade" style="margin-bottom: 15px">
@@ -30,39 +27,3 @@
     >
   </ion-toolbar>
 </ion-footer>
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Produkty na grupy</ion-title>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <app-spinner *ngIf="this.tabService.isLoading$ | async"></app-spinner>
-
-  <ion-list-header>
-    <ion-label>Grupa:</ion-label>
-  </ion-list-header>
-  <ion-item>
-    <ion-label position="floating">Kod</ion-label>
-    <ion-input
-      autofocus
-      type="text"
-      [ngModel]="productCode"
-      name="productCode"
-    ></ion-input>
-  </ion-item>
-  <ion-text color="primary">
-    <h1 style="font-size: 20vh">{{group?.strefa}}</h1>
-  </ion-text>
-
-  <ion-text *ngIf="group?.podstrefa" color="secondary">
-    <h2 style="font-size: 10vh">{{group?.podstrefa}}</h2>
-  </ion-text>
-</ion-content>
-<ion-footer collapse="fade" style="margin-bottom: 15px">
-  <ion-toolbar>
-    <ion-button expand="block" size="large" (click)="sendInfo('5902557245192')"
-      >Skanuj z aparatu</ion-button
-    >
-  </ion-toolbar>
-</ion-footer>
- -->

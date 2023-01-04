@@ -24,18 +24,17 @@ export class ContextsPage implements OnInit {
 
   ngOnInit(): void {
     this.http.getDostawy().subscribe((d) => {
-      console.log(d);
       const obj = {};
       d.dostawy.forEach((dostawa) => {
         if (dostawa.koN.length > 0) {
-          obj[dostawa.koN] = obj[dostawa.koN] || [];
-          obj[dostawa.koN].push(dostawa);
+          const container = `#${dostawa.koN}`;
+          obj[container] = obj[container] || [];
+          obj[container].push(dostawa);
         } else {
           obj[dostawa.nr_zam] = [];
         }
       });
-
-      console.log(obj);
+      console.log('dostepne dostawy', obj);
       this.contexts = obj;
     });
   }
