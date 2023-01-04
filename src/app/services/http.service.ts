@@ -31,6 +31,15 @@ export interface IUsers {
   users: IUserBasic[];
 }
 
+export interface IDostawa {
+  ik_id: string;
+  nr_zam: string;
+  koN: string;
+  ik_dPortEu: string;
+  ik_dMagStart: string;
+  ik_dMagStop: string;
+}
+
 export interface IUserBasic {
   su_id: number;
   su_inic: string;
@@ -74,7 +83,7 @@ export class HttpService {
   }
 
   getDostawy() {
-    return this.http.get<any>(`${apiUrl}tns_dos.php`);
+    return this.http.get<{ dostawy: IDostawa[] }>(`${apiUrl}tns_dos.php`);
   }
 
   getUserToken2(ini = 'lk') {

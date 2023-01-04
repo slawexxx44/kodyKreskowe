@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { CommunicationService } from '../../services/communication.service';
-import { IDostawy, HttpService } from '../../services/http.service';
+import { IDostawa, HttpService } from '../../services/http.service';
 import { FormService } from '../../services/form-service.service';
 import { TabService } from '../current-tab.service';
 import { NavController } from '@ionic/angular';
@@ -12,7 +12,8 @@ import { appRoutes } from '../../shared/routes/routes';
   templateUrl: 'contexts.page.html',
 })
 export class ContextsPage implements OnInit {
-  contexts: { [key: string]: IDostawy[] };
+  contexts: { [key: string]: IDostawa[] };
+  dostawy: IDostawa[];
 
   constructor(
     private communicationService: CommunicationService,
@@ -25,7 +26,8 @@ export class ContextsPage implements OnInit {
   ngOnInit(): void {
     this.http.getDostawy().subscribe((d) => {
       const obj = {};
-      d.dostawy.forEach((dostawa) => {
+      this.dostawy = d.dostawy;
+      d.dostawy.forEach((dostawa: IDostawa) => {
         if (dostawa.koN.length > 0) {
           const container = `#${dostawa.koN}`;
           obj[container] = obj[container] || [];
@@ -45,11 +47,12 @@ export class ContextsPage implements OnInit {
 
   async selectContext(nrZam: string) {
     console.log('kontekts', nrZam);
+    const dostawa = this.dostawy.find((d) => d.nr_zam === nrZam);
     const response = await this.formService.openContextForm();
     if (!response) {
       return;
     }
-    this.http.setContext(nrZam, response.code).subscribe(
+    this.http.setContext(dostawa.ik_id, response.code).subscribe(
       () => {
         this.communicationService.presentToast('Kontekt ustawiony pomyślnie');
         this.navigate();
