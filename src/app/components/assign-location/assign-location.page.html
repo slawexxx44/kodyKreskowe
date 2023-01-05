@@ -3,7 +3,7 @@
     <h1>Skanuj kod lokalizacji</h1>
   </ion-text>
 
-  <ion-list *ngIf="locations.length > 0">
+  <ion-list *ngIf="locations.length > 0" style="padding-bottom: 200px">
     <ion-reorder-group
       [disabled]="locations.length  < 2"
       (ionItemReorder)="handleReorder($any($event))"
@@ -21,7 +21,7 @@
             <ion-label>{{product}} </ion-label>
             <ion-reorder slot="end"></ion-reorder>
           </ion-item>
-          <ion-item-options side="end">
+          <ion-item-options side="start">
             <ion-item-option color="danger" (click)="removeItem(product, i)">
               <ion-icon slot="icon-only" name="trash"></ion-icon>
             </ion-item-option>

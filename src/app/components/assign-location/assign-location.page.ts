@@ -26,7 +26,8 @@ export class AssignLocationPage implements OnInit {
     private barcodeScanner: BarcodeScanner,
     private communicationService: CommunicationService,
     private httpService: HttpService,
-    private formService: FormService
+    private formService: FormService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   @HostListener('window:keydown', ['$event'])
@@ -44,7 +45,7 @@ export class AssignLocationPage implements OnInit {
     if (event.key === 'Enter') {
       console.log('Enter');
       this.prependLocation(this.locationCode);
-
+      this.cdr.detectChanges();
       return (this.locationCode = '');
     }
 
@@ -133,6 +134,8 @@ export class AssignLocationPage implements OnInit {
       lokalizacja: locationCode,
       produkty: this.locations.length > 0 ? [] : this.productCodes,
     });
+
+    this.cdr.detectChanges();
   }
 
   ngOnInit(): void {
@@ -184,9 +187,11 @@ export class AssignLocationPage implements OnInit {
     console.log(this.locations);
     this.productCodes = this.productCodes.filter((val) => val !== product);
     this.formService.reassignProducts(this.productCodes);
+    this.cdr.detectChanges();
   }
 
   removeLocation(i: number) {
-    this.locations.splice(i, 1);
+    this.locations = [...this.locations.splice(i, 1)];
+    this.cdr.detectChanges();
   }
 }

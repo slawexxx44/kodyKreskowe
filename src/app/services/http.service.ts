@@ -68,6 +68,21 @@ export interface IUser {
 
 const apiUrl = 'http://10.0.0.203/app/';
 const t = 5902557244317; //test product
+
+const t2 = [
+  '5902557244317',
+  '5902557245192',
+  '5903271071302',
+  '5902557244393',
+  '5903271079063',
+  '5903271071371',
+  '5903707914319',
+];
+
+const randomIntFromInterval = (min, max) =>
+  // min and max included
+  Math.floor(Math.random() * (max - min + 1) + min);
+
 @Injectable({
   providedIn: 'root',
 })
@@ -105,7 +120,7 @@ export class HttpService {
 
   getProductLocation(productCode: string) {
     return this.http.get<IProductGroup>(
-      `${apiUrl}tns_ean.php?p1=${productCode}`
+      `${apiUrl}tns_ean.php?p1=${t2[randomIntFromInterval(0, 6)]}`
     );
   }
 

@@ -1,4 +1,9 @@
-import { Component, HostListener } from '@angular/core';
+import {
+  Component,
+  ComponentFactoryResolver,
+  HostListener,
+  ChangeDetectorRef,
+} from '@angular/core';
 import {
   BarcodeScanner,
   BarcodeScanResult,
@@ -24,10 +29,11 @@ export class Products2locationPage {
     private barcodeScanner: BarcodeScanner,
     private communicationService: CommunicationService,
     private httpService: HttpService,
-    private formService: FormService
+    private formService: FormService,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
     console.log('event', event.code);
 
@@ -40,13 +46,14 @@ export class Products2locationPage {
     }
 
     if (event.key === 'Enter') {
-      console.log('Enter');
+      console.log('Enter', this.productCode);
       this.sendInfo();
 
       return (this.productCode = '');
     }
 
-    this.productCode += event.key;
+    console.log('productCode', this.productCode);
+    return (this.productCode += event.key);
   }
 
   sendInfo() {
@@ -60,8 +67,10 @@ export class Products2locationPage {
       (data: IProductGroup) => {
         this.product = data;
         console.log('product', this.product);
+
         this.formService.prependProduct(data.ean);
         this.communicationService.presentToast();
+        this.cdr.detectChanges();
       },
       (err) => {
         console.error(err);

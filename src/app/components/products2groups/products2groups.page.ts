@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ChangeDetectorRef } from '@angular/core';
 import {
   BarcodeScanner,
   BarcodeScanResult,
@@ -6,6 +6,7 @@ import {
 import { FormService } from '../../services/form-service.service';
 import { CommunicationService } from '../../services/communication.service';
 import { IProductGroup, HttpService } from '../../services/http.service';
+import { TouchSequence } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-products-2-groups',
@@ -20,12 +21,13 @@ export class Products2groupsPage {
     private barcodeScanner: BarcodeScanner,
     public formService: FormService,
     private communicationService: CommunicationService,
-    private httpService: HttpService
+    private httpService: HttpService,
+    private cdr: ChangeDetectorRef
   ) {}
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener('document:keydown', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    console.log('event', event.code);
+    //console.log('event', event.code);
 
     if (event.key === 'Escape') {
       return;
@@ -37,6 +39,7 @@ export class Products2groupsPage {
 
     if (event.key === 'Enter') {
       console.log('Enter');
+
       this.sendInfo();
 
       return (this.productCode = '');
@@ -47,14 +50,18 @@ export class Products2groupsPage {
 
   sendInfo() {
     if (this.productCode.length < 1) {
+      console.log('return');
       return;
     }
 
-    //this.httpService.getProductLocation(this.productCode).subscribe(
+    console.log('before sending request');
     this.httpService.getProductLocation(this.productCode).subscribe(
       (data: IProductGroup) => {
+        console.log('request sent successfully');
         this.group = data;
         this.communicationService.presentToast();
+
+        this.cdr.detectChanges();
       },
       (err) => {
         console.error(err);
